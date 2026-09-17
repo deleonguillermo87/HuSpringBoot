@@ -222,7 +222,7 @@ event-Venue/
 └── archivos generados por Maven
 ```
 target/ es una carpeta generada por Maven. No es necesario conservarla en el control de versiones.
-
+```text
 🧩 Modelo de datos
 Event
 Representa un evento.
@@ -440,7 +440,7 @@ Al crear un evento, EventService valida:
 EventNotFoundException
 2. Nombre obligatorio
    El nombre no puede ser:
-
+```
 null
 
 vacío
@@ -515,7 +515,7 @@ Ventaja
 Esto evita repetir bloques de manejo de excepciones en cada controlador.
 
 El flujo queda:
-
+```text
 Controller
 │
 ▼
@@ -529,7 +529,7 @@ Service
 400 Bad Request
 🌱 Datos iniciales
 DataSeedersConfig utiliza CommandLineRunner para insertar datos automáticamente cuando inicia la aplicación.
-
+```
 Venues iniciales
 ID	Nombre	Dirección	Capacidad
 1	Teatro amira de la rosa	Barranquilla	1000
@@ -685,7 +685,7 @@ y:
 
 GET http://localhost:8080/api/venues
 Si la aplicación está recién iniciada, deberían aparecer los datos cargados por DataSeedersConfig.
-
+```text
 🧪 Ejemplos completos para probar la API
 Crear evento
 curl -X POST http://localhost:8080/api/events \
@@ -731,9 +731,10 @@ curl -X PUT http://localhost:8080/api/venues \
 }'
 Eliminar venue
 curl -X DELETE http://localhost:8080/api/venues/1
+```
 🔄 Flujo interno de una petición
 Por ejemplo, para crear un evento:
-
+```text
 POST /api/events
 │
 ▼
@@ -768,6 +769,7 @@ GlobalExceptionHandler
 │
 ▼
 HTTP 400 Bad Request
+```
 💾 Persistencia de datos
 Actualmente no se utiliza una base de datos.
 
