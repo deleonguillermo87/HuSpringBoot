@@ -1,29 +1,3 @@
-
-
-copia.zip
-Archivo Zip
-gerename un readme muy completo de este archivo bien explicado y todo que ses exselente
-
-¡Claro! Revisé el proyecto completo y preparé un README bastante completo y profesional, documentando arquitectura, instalación, endpoints, modelos, validaciones, excepciones, pruebas, ejemplos JSON/cURL, Swagger, estructura del proyecto, limitaciones actuales y posibles mejoras.
-
-Te dejo las dos opciones:
-
-📄 Descargar README completo
-
-📦 Descargar el proyecto ZIP con el README incluido
-
-También documenté explícitamente algunos detalles importantes del código actual, como que los datos se almacenan en memoria, que Event y Venue todavía no tienen una relación entre sí y cómo funcionan las validaciones y pruebas.
-
-
-README_Event_Venue.md
-Documento
-
-
-Biblioteca
-/
-README_Event_Venue.md
-
-
 Event Venue API
 API REST desarrollada con Java 21 + Spring Boot para la gestión de eventos y lugares (venues). El proyecto implementa operaciones CRUD básicas, validaciones de negocio, manejo global de excepciones, documentación OpenAPI/Swagger, carga de datos iniciales y pruebas unitarias con Mockito.
 
