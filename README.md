@@ -163,6 +163,7 @@ OpenApiConfig: configuración de OpenAPI.
 DataSeedersConfig: carga de información inicial.
 
 📁 Estructura del proyecto
+```text
 event-Venue/
 ├── pom.xml
 ├── mvnw
@@ -219,6 +220,7 @@ event-Venue/
 │
 └── target/
 └── archivos generados por Maven
+```
 target/ es una carpeta generada por Maven. No es necesario conservarla en el control de versiones.
 
 🧩 Modelo de datos
