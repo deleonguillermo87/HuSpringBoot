@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Evento</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 95vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"],
+        textarea,
+        .readonly-field {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #333;
+            background-color: #fff;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .readonly-field {
+            background-color: #f1f5f9;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #152963;
+        }
+
+        .btn-delete {
+            width: 100%;
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 12px;
+        }
+
+        .btn-delete:hover {
+            background-color: #b91c1c;
+        }
+
+        .btn-cancel {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-cancel:hover {
+            color: #334155;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔍 Gestión del Evento</h1>
+    <p class="subtitle">Actualiza la información o elimina el registro de Docker</p>
+
+    <div th:if="${error}" class="alert alert-error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- FORMULARIO DE ACTUALIZACIÓN -->
+    <form th:if="${event != null}" th:action="@{/admin/event/{id}/actualizar(id=${event.id})}" th:object="${event}" method="post">
+
+        <div class="form-group">
+            <label>ID del Evento</label>
+            <div class="readonly-field" th:text="*{id}">1</div>
+        </div>
+
+        <div class="form-group">
+            <label for="nombre">Nombre del Evento</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required maxlength="80" />
+        </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha y Hora</label>
+            <input type="datetime-local" id="fecha" th:field="*{fecha}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" th:field="*{descripcion}" required maxlength="120"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">🔄 Actualizar Cambios</button>
+    </form>
+
+    <!-- FORMULARIO INDEPENDIENTE PARA ELIMINAR (Usa tu método del controlador) -->
+    <form th:if="${event != null}" th:action="@{/admin/event/{id}/eliminar(id=${event.id})}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar permanentemente este evento?');">
+        <button type="submit" class="btn-delete">🗑️ Eliminar Evento</button>
+        <a th:href="@{/admin/event}" class="btn-cancel">Volver al listado</a>
+    </form>
+
+    <div th:unless="${event != null}" style="text-align: center; color: #64748b;">
+        <p>El evento solicitado no existe o fue eliminado.</p>
+        <a th:href="@{/admin/event}" class="btn-cancel">Volver al listado</a>
+    </div>
+</div>
+
+</body>
+</html>
