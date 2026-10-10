@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Lugar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #333;
+            background-color: #fff;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #152963;
+        }
+
+        .btn-cancel {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-cancel:hover {
+            color: #334155;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏟️ Registrar Lugar</h1>
+
+    <div th:if="${error}" class="alert alert-error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/admin/venues/crear}" th:object="${venue}" method="post">
+
+        <div class="form-group">
+            <label for="nombre">Nombre del Lugar</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required placeholder="Ej: Teatro Amira de la Rosa" maxlength="80" />
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" th:field="*{direccion}" required placeholder="Ej: Calle 53 #46-32" maxlength="120" />
+        </div>
+
+        <div class="form-group">
+            <label for="capacidad">Capacidad</label>
+            <input type="number" id="capacidad" th:field="*{capacidad}" required min="1" placeholder="Ej: 1000" />
+        </div>
+
+        <button type="submit" class="btn-submit">💾 Guardar Lugar</button>
+        <a th:href="@{/admin/venues/listar}" class="btn-cancel">Volver al listado</a>
+    </form>
+</div>
+
+</body>
+</html>
